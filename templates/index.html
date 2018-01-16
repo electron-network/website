@@ -1,0 +1,156 @@
+{% load static %}
+
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>The HTML5 Herald</title>
+    <meta name="description" content="The HTML5 Herald">
+    <meta name="author" content="SitePoint">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link rel="shortcut icon" href="{% static 'logo.svg' %}"/>
+
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+          'gtm.start':
+            new Date().getTime(), event: 'gtm.js'
+        });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', 'GTM-KB3Q2BF');
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            background: #131617;
+            color: #95B3B9;
+            font-family: 'Lato', sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        p {
+            line-height: 1.618em;
+        }
+
+        .cream {
+            color: #FFEDDB;
+        }
+
+        .rosso {
+            color: #E83945;
+        }
+
+        .electric {
+            color: #DCEFF5;
+        }
+
+        .disabled {
+            color: #998E84;
+        }
+
+        .brand {
+            margin: 0 auto;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        section {
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .brand img {
+            max-width: 112px;
+        }
+
+        .brand .name {
+            font-family: Futura;
+            font-size: 1.8em;
+            text-transform: uppercase;
+            padding: 0.5em 0;
+        }
+
+        .about {
+            padding: 3em 0;
+        }
+
+        .button {
+            padding: 10px;
+            margin: 1em;
+            border-radius: 5px;
+            display: inline-block;
+            min-width: 150px;
+            border: 1px solid #246475;
+        }
+
+        .content {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .contact a {
+            margin: 10px 10px;
+        }
+
+        .divider-title {
+            font-family: 'Futura';
+            text-transform: uppercase;
+            border-bottom: 1px solid #013340;
+            width: 100%;
+            max-width: 150px;
+            margin: 1em;
+            padding: 1em;
+            text-align: center;
+            color: #FFEDDB;
+        }
+
+    </style>
+</head>
+
+<body>
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KB3Q2BF"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<div class="content">
+    <div class="brand">
+        <img src="{% static 'logo.svg' %}" alt="Electron Logo">
+        <div class="name rosso">Electron</div>
+        <div class="tagline cream">Decentralized Blockchain Platform made for Humans</div>
+    </div>
+    <section class="about">
+        <p>Electron implements Adversarial Consensus, a rapid and sustainable alternative to Proof of Work.</p>
+        <a class="button disabled">Whitepaper</a>
+    </section>
+    <div class="divider-title">Get Involved</div>
+    <section class="contact">
+        <a href="https://t.me/electronnetwork" target="_blank" class="button cream">Telegram</a>
+        <a href="mailto:hi@electron.network" class="button cream">Email</a>
+    </section>
+</div>
+</body>
+</html>
