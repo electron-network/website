@@ -11,7 +11,7 @@ ADMIN_PATH = os.environ.get('ADMIN_PATH', 'admin/')
 
 ALLOWED_HOSTS = [
     'electron.network',
-    'electronnetwork.herokuapp.com',
+    'electron-network.herokuapp.com',
     'localhost',
     '127.0.0.1',
 ]
