@@ -7,9 +7,10 @@ name = "pypi"
 
 [packages]
 
-django = "*"
+Django = "*"
 gunicorn = "*"
 dj-database-url = "*"
+whitenoise = "*"
 
 
 [dev-packages]

@@ -6,11 +6,11 @@
 <head>
     <meta charset="utf-8">
 
-    <title>The HTML5 Herald</title>
-    <meta name="description" content="The HTML5 Herald">
-    <meta name="author" content="SitePoint">
+    <title>Electron Network</title>
+    <meta name="description" content="Electron Network">
+    <meta name="author" content="Electron Network">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-    <link rel="shortcut icon" href="{% static 'logo.svg' %}"/>
+    <link rel="shortcut icon" href="{% static 'logo.png' %}"/>
 
     <script>
       (function (w, d, s, l, i) {
@@ -32,6 +32,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
   <![endif]-->
     <style>
+        @font-face {
+            font-family: 'f';
+            src: url('{% static 'fonts/Futura.woff2' %}') format('woff2'),
+                 url('{% static 'fonts/Futura.woff' %}') format('woff');
+                 url('{% static 'fonts/Futura.ttf' %}') format('ttf');
+            font-weight: normal;
+            font-style: normal;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -52,16 +61,39 @@
             line-height: 1.618em;
         }
 
+        input {
+            border: none;
+            background: #011c23;
+            color: #E83945;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        input:focus {
+            outline: none;
+        }
+
+        input::placeholder {
+            color: #246475;
+        }
+
+        button {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #256375;
+            background: none;
+            outline: 0;
+            color: #FFEDDB;
+            cursor: pointer;
+            transition: color 250ms ease;
+        }
+
         .cream {
             color: #FFEDDB;
         }
 
         .rosso {
             color: #E83945;
-        }
-
-        .electric {
-            color: #DCEFF5;
         }
 
         .disabled {
@@ -78,6 +110,7 @@
             text-align: center;
             width: 100%;
             max-width: 400px;
+            padding-bottom: 2rem;
         }
 
         .brand img {
@@ -85,14 +118,14 @@
         }
 
         .brand .name {
-            font-family: Futura;
+            font-family: 'Futura', 'sans-serif';;
             font-size: 1.8em;
             text-transform: uppercase;
             padding: 0.5em 0;
         }
 
         .about {
-            padding: 3em 0;
+            padding: 3em 0 1em 0;
         }
 
         .button {
@@ -105,7 +138,8 @@
         }
 
         .content {
-            height: 100vh;
+            min-height: 100vh;
+            padding: 2rem 10px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -117,11 +151,11 @@
         }
 
         .divider-title {
-            font-family: 'Futura';
+            font-family: 'Futura', 'sans-serif';
             text-transform: uppercase;
             border-bottom: 1px solid #013340;
             width: 100%;
-            max-width: 150px;
+            max-width: 200px;
             margin: 1em;
             padding: 1em;
             text-align: center;
@@ -146,11 +180,74 @@
         <p>Electron implements Adversarial Consensus, a rapid and sustainable alternative to Proof of Work.</p>
         <a class="button disabled">Whitepaper</a>
     </section>
+    <div class="divider-title">Stay Informed</div>
+    <section class="contact">
+        <form method="post" id="email-capture">
+            {% csrf_token %}
+            <input type="email" name="email" required title="email" placeholder="Enter your Email">
+            <button type="submit">Submit</button>
+        </form>
+    </section>
     <div class="divider-title">Get Involved</div>
     <section class="contact">
         <a href="https://t.me/electronnetwork" target="_blank" class="button cream">Telegram</a>
-        <a href="mailto:hi@electron.network" class="button cream">Email</a>
+        <a href="https://github.com/electron-network" target="_blank" class="button cream">GitHub</a>
     </section>
 </div>
+<script type="text/javascript">
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      var cookies = document.cookie.split(';');
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i].trim();
+
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+
+  window.addEventListener("load", function () {
+    function changeForm(payload) {
+      submitButton.innerText = payload.msg;
+      submitButton.classList.toggle('rosso');
+      setTimeout(function () {
+        form.reset();
+        submitButton.innerText = "Submit";
+        submitButton.classList.toggle('rosso');
+      }, 3000);
+    }
+
+    function sendData() {
+      var XHR = new XMLHttpRequest();
+      var FD = new FormData(form);
+
+      XHR.addEventListener("load", function (event) {
+        changeForm(JSON.parse(event.target.responseText))
+      });
+
+      XHR.addEventListener("error", function (event) {
+        changeForm(JSON.parse(event.target.responseText))
+      });
+
+      XHR.open("POST", "{% url 'accounts:email-capture' %}");
+      XHR.setRequestHeader('X-CSRF-Token', getCookie('csrftoken'));
+      XHR.send(FD);
+    }
+
+    var form = document.getElementById("email-capture");
+    var submitButton = form.querySelector("button");
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      sendData();
+    });
+  });
+
+</script>
 </body>
 </html>
